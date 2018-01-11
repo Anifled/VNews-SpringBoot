@@ -2,6 +2,7 @@ package com.mobile.vnews.mapper;
 
 import com.mobile.vnews.module.bean.Message;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  */
 
 @Mapper
+@Service
 public interface MessageMapper {
 
 
@@ -20,14 +22,15 @@ public interface MessageMapper {
      * @param userID
      * @return
      */
-    @Select("SELECT notice.ID, notice.fromID, fromUser.username AS fromUsername, fromUser.image AS fromImage,\n" +
-            "notice.timestamp, notice.content, news.title, notice.toID\n" +
-            "FROM notice, news, user as fromUser\n" +
-            "WHERE news.ID = notice.newsID AND fromUser.ID = notice.fromID AND\n" +
-            "notice.newsID IN (SELECT newsID FROM comment\n" +
-            "WHERE comment.fromID = #{userID} OR comment.toID = #{userID})\n" +
-            "ORDER BY timestamp DESC")
-    List<Message> getMessagesByUserID(String userID);
+    @Select("SELECT notice.ID AS id, notice.fromID, fromUser.username AS fromUsername, fromUser.image AS fromImage,\n" +
+            "    notice.toID, news.title, notice.timestamp, notice.content, newsID,\n" +
+            "            (SELECT username FROM user WHERE ID = notice.toID) AS toUsername\n" +
+            "    FROM notice, news, user as fromUser\n" +
+            "    WHERE news.ID = notice.newsID AND timestamp >= #{timestamp} AND notice.newsID in\n" +
+            "            (SELECT notice.newsID FROM notice WHERE notice.fromID = #{userID})\n" +
+            "    AND fromUser.ID = notice.fromID ORDER BY timestamp DESC")
+    List<Message> getMessagesByUserID(@Param("userID") String userID,
+                                      @Param("timestamp") long timestamp);
 
     /**
      * delete it by submit people

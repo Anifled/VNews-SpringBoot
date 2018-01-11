@@ -94,6 +94,27 @@ public class NewsService {
     }
 
     /**
+     * 根据id获取新闻
+     * @param ID
+     * @return
+     */
+    public BasicResponse<News> getNewsByIDAndUserID(int newsID, String user_id) {
+        BasicResponse<News> response = new BasicResponse<>();
+        int code = 200;
+        String message = "success";
+        try{
+            News news = newsMapper.getNewsByIDAndUserID(newsID, user_id);
+            response.setContent(news);
+        }catch (Exception e){
+            code = 500;
+            message = e.getMessage();
+        }
+        response.setCode(code);
+        response.setMessage(message);
+        return response;
+    }
+
+    /**
      *根据用户id获取最喜爱新闻
      * @param UserID
      * @return
@@ -120,7 +141,7 @@ public class NewsService {
      * @param newsID
      * @return
      */
-    public BasicResponse<String> addFavoriteNews(String userID, int newsID) {
+    public BasicResponse<String> addFavoriteNews(String userID, String newsID) {
         BasicResponse<String> response = new BasicResponse<>();
         int code = 200;
         String message = "add favorite news success";
@@ -144,7 +165,7 @@ public class NewsService {
      * @param newsID
      * @return
      */
-    public BasicResponse<String> checkFavoriteNews(String userID, int newsID) {
+    public BasicResponse<String> checkFavoriteNews(String userID, String newsID) {
         BasicResponse<String> response = new BasicResponse<>();
         int code = 200;
         String message = "favorite news exists";
@@ -194,7 +215,7 @@ public class NewsService {
      * @param newsID
      * @return
      */
-    public BasicResponse<String> addViewNews(String userID, int newsID) {
+    public BasicResponse<String> addViewNews(String userID, String newsID) {
         BasicResponse<String> response = new BasicResponse<>();
         int code = 200;
         String message = "add view";

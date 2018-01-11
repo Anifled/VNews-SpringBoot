@@ -3,7 +3,9 @@ package com.mobile.vnews.module.bean;
 import java.util.Date;
 
 /**
- * Created by xuantang on 11/27/17.
+ *
+ * @author xuantang
+ * @date 11/27/17
  */
 
 public class News {
@@ -35,6 +37,15 @@ public class News {
     private int viewCount;
     private int likeCount;
     private int commentCount;
+    private boolean isLike;
+
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
+    }
 
     public int getID() {
         return ID;

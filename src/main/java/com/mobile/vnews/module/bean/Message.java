@@ -1,11 +1,11 @@
 package com.mobile.vnews.module.bean;
 
-import java.security.Timestamp;
 
 /**
- * Created by xuantang on 11/27/17.
+ *
+ * @author xuantang
+ * @date 11/27/17
  */
-
 public class Message {
     /**
      * ID        INT AUTO_INCREMENT
@@ -16,21 +16,29 @@ public class Message {
      * content   TEXT                                NOT NULL,
      * timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
      */
-    private int ID;
+    private int id;
     private String newsID;
     private String fromID;
     private String toID;
     private String content;
-    private Timestamp timestamp;
-
+    private long timestamp;
     /**
      *  add after
      */
     private String title;
+    private String toUsername;
     private String fromImage;
     private String fromUsername;
+    private String floor;
 
-//    /**
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
+    //    /**
 //     * Relation user for submitting
 //     */
 //    private String relationID;
@@ -42,6 +50,14 @@ public class Message {
 //    public void setRelationID(String relationID) {
 //        this.relationID = relationID;
 //    }
+
+    public String getToUsername() {
+        return toUsername;
+    }
+
+    public void setToUsername(String toUsername) {
+        this.toUsername = toUsername;
+    }
 
     public String getTitle() {
         return title;
@@ -69,12 +85,12 @@ public class Message {
 
     /* --------------------------------------------- */
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNewsID() {
@@ -109,11 +125,11 @@ public class Message {
         this.content = content;
     }
 
-    public Timestamp getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 }
